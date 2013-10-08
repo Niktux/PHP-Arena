@@ -1,0 +1,11 @@
+{
+	"name" : "niktux/warrior",
+	"require" : {
+		"silex/silex" : "1.1.0"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Warrior" : "src"
+		}
+	}
+}
