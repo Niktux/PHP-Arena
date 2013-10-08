@@ -5,8 +5,7 @@ The setup includes:
 -------------------
 * box:       wheezy64 (http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box)
 * webserver: apache
-* database:  mysql
-* PHP:       PHP 5.5
+* PHP:       PHP 5.4
 
 Next steps:
 -----------
