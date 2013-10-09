@@ -31,11 +31,17 @@ class Cli implements EventSubscriberInterface
             }
         }
         
-        echo "\n";
+        $this->lf();
     }
     
     public function onMobMove(MobMovement $event)
     {
-     //   echo "Mob has moved " . ($event->getDirection() === Direction::BACKWARD ? "backward" : "forward") . "\n";
+     //   echo "Mob has moved " . ($event->getDirection() === Direction::BACKWARD ? "backward" : "forward");
+     // $this->lf();
+    }
+    
+    private function lf()
+    {
+        echo PHP_SAPI === 'cli' ? "\n" : "<br/>";
     }
 }

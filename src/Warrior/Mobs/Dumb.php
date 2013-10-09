@@ -11,10 +11,12 @@ use Warrior\Core\MobAction;
 class Dumb implements Mob
 {
     private
+        $direction,
         $actions;
     
     public function __construct()
     {
+        $this->direction = Direction::FORWARD;
         $this->actions = null;
     }
     
@@ -27,15 +29,16 @@ class Dumb implements Mob
     
     public function play(WorldSensor $sensor)
     {
-        $direction = Direction::FORWARD;
+        if($sensor->look($this->direction) === false)
+        {
+            $this->changeDirection(); 
+        }
         
-        if($sensor->look($direction) !== false)
-        {
-            $this->actions->move($direction);
-        }
-        else 
-        {
-            $this->actions->move(Direction::BACKWARD);
-        }
+        $this->actions->move($this->direction);
+    }
+    
+    private function changeDirection()
+    {
+        $this->direction = $this->direction === Direction::BACKWARD ? Direction::FORWARD : Direction::BACKWARD;
     }
 }

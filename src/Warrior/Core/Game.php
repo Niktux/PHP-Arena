@@ -3,6 +3,7 @@
 namespace Warrior\Core;
 
 use Warrior\WorldSensor\Tight;
+use Warrior\Event\WorldDescription;
 
 class Game
 {
@@ -70,6 +71,9 @@ class Game
         return $this->step;
     }
     
+    /**
+     * @return Warrior\Core\World
+     */
     public function getWorld()
     {
         return $this->world;
