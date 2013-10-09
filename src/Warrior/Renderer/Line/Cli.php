@@ -2,18 +2,40 @@
 
 namespace Warrior\Renderer\Line;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Warrior\Event\WorldDescription;
+use Warrior\Core\Mob;
+use Warrior\Event\MobMovement;
+use Warrior\Core\Direction;
 
 class Cli implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
         return array(
-            'world.init' => array('onWorldInit', 0)    
+            'world.changed' => array('onWorldChange', 0),
+            'mob.moved' => array('onMobMove', 0),
         );
     }
     
-    public function onWorldInit()
+    public function onWorldChange(WorldDescription $event)
     {
-        echo "hello world\n";
+        foreach($event->getPlaces() as $place)
+        {
+            if($place instanceof Mob)
+            {
+                echo "M";
+            }
+            else
+            {
+                echo "-";
+            }
+        }
+        
+        echo "\n";
+    }
+    
+    public function onMobMove(MobMovement $event)
+    {
+     //   echo "Mob has moved " . ($event->getDirection() === Direction::BACKWARD ? "backward" : "forward") . "\n";
     }
 }

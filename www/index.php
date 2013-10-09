@@ -9,11 +9,11 @@ use Warrior\Renderer\Line\Cli;
 
 require '../vendor/autoload.php';
 
-$world = new Line(10);
-$world->setPlayer(new Dumb(), 1)
+$world = new Line(12);
+$world->setPlayer(new Dumb(), 0)
       ->addEventSubscriber(new Cli());
 
 $g = new Game($world);
-$g->addEndConditionChecker(new Timeout(5));
+$g->addEndConditionChecker(new Timeout(15));
 
 $g->launch();

@@ -20,6 +20,6 @@ class Tight implements WorldSensor
     
     public function look($direction = Direction::FORWARD)
     {
-        $this->world->getNextPlaceId($this->sensorPlaceId, $direction);
+        return $this->world->getNextPlaceId($this->sensorPlaceId, $direction);
     }
 }

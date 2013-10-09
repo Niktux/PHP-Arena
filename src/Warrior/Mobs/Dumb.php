@@ -32,7 +32,10 @@ class Dumb implements Mob
         if($sensor->look($direction) !== false)
         {
             $this->actions->move($direction);
-            echo "Move forward\n";
+        }
+        else 
+        {
+            $this->actions->move(Direction::BACKWARD);
         }
     }
 }

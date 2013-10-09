@@ -10,6 +10,7 @@ use Warrior\Core\MobAction;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Warrior\Event\WorldDescription;
+use Warrior\Event\MobMovement;
 
 class Line implements World
 {
@@ -142,6 +143,9 @@ class Line implements World
                 $this->setMobAt($mob, $nextPlaceid);
             }
         }
+        
+        $this->notifyMobHasMoved($mob, $direction);
+        $this->notifyWorldChange();
     }
     
     private function freePlace($placeId)
@@ -158,6 +162,16 @@ class Line implements World
     
     public function startGame()
     {
-        $this->dispatcher->dispatch('world.init', new WorldDescription($this->places->toArray()));
+        $this->notifyWorldChange();
+    }
+    
+    private function notifyWorldChange()
+    {
+        $this->dispatcher->dispatch('world.changed', new WorldDescription($this->places->toArray()));
+    }
+    
+    private function notifyMobHasMoved(Mob $mob, $direction)
+    {
+        $this->dispatcher->dispatch('mob.moved', new MobMovement($mob, $direction));
     }
 }
