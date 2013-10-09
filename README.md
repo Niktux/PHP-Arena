@@ -5,7 +5,7 @@ Requirements
 ------------
 * Virtualbox
 * Vagrant
-* vagran-hostsupdater 
+* vagrant-hostsupdater 
  `vagrant plugin install vagrant-hostsupdater`
 
 Installation
