@@ -42,7 +42,13 @@ class Game
             {
                 $this->checkEndConditions();
                 
-                $player->play(new Tight($this->world));
+                $action = $player->play(new Tight($this->world));
+                if(! $action instanceof Action)
+                {
+                    throw new \RuntimeException('Invalid action');
+                }
+                
+                $action->execute($player, $this->world);
             }
         }
         catch(Exceptions\GameEndCondition $e)

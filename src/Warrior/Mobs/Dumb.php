@@ -6,25 +6,17 @@ use Warrior\Core\Mob;
 use Warrior\Core\World;
 use Warrior\Core\WorldSensor;
 use Warrior\Core\Direction;
-use Warrior\Core\MobAction;
+use Warrior\Core\MobStrategy;
+use Warrior\Core\Action\Move;
 
-class Dumb implements Mob
+class Dumb implements MobStrategy
 {
     private
-        $direction,
-        $actions;
+        $direction;
     
     public function __construct()
     {
         $this->direction = Direction::FORWARD;
-        $this->actions = null;
-    }
-    
-    public function setMobAction(MobAction $actions)
-    {
-        $this->actions = $actions;
-        
-        return $this;
     }
     
     public function play(WorldSensor $sensor)
@@ -33,8 +25,8 @@ class Dumb implements Mob
         {
             $this->changeDirection(); 
         }
-        
-        $this->actions->move($this->direction);
+
+        return new Move($this->direction);
     }
     
     private function changeDirection()

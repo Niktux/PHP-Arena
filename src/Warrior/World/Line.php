@@ -6,11 +6,11 @@ use Warrior\Core\World;
 use Warrior\Core\Mob;
 use Warrior\Core\Exceptions\InvalidPlaceId;
 use Warrior\Core\Direction;
-use Warrior\Core\MobAction;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Warrior\Event\WorldDescription;
 use Warrior\Event\MobMovement;
+use Warrior\Core\Action;
 
 class Line implements World
 {
@@ -60,7 +60,6 @@ class Line implements World
         
         $this->player = $player;
         $this->setMobAt($player, $placeId);
-        $this->player->setMobAction(new MobAction($this, $this->player));
         
         return $this;
     }
