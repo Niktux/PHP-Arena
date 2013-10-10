@@ -8,6 +8,7 @@ use Warrior\Core\Renderer\Line\Cli;
 use Warrior\Core\EndConditionCheckers\ExitReached;
 use Warrior\Core\Mobs\Strategy\Dumb;
 use Warrior\Core\Mobs\Player;
+use Warrior\Bots\Goblin;
 
 require '../vendor/autoload.php';
 
@@ -16,6 +17,7 @@ $player->setStrategy(new Dumb());
 
 $world = new Line(10);
 $world->addMob($player, 5)
+      ->addMob(new Goblin(), 3)
       ->addEventSubscriber(new Cli());
 
 $g = new Game($world);
