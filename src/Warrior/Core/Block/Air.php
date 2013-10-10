@@ -40,8 +40,8 @@ class Air implements Block
         return $mob;
     }
     
-	public function hasMob()
-	{
+    public function hasMob()
+    {
         return $this->mob instanceof Mob;
-	}
+    }
 } 
