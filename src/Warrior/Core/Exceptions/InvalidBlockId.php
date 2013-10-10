@@ -2,6 +2,6 @@
 
 namespace Warrior\Core\Exceptions;
 
-class InvalidPlaceId extends \Exception
+class InvalidBlockId extends \Exception
 {
 }

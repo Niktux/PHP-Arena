@@ -4,13 +4,16 @@ namespace Warrior\Core\World;
 
 use Warrior\Core\World;
 use Warrior\Core\Mob;
-use Warrior\Core\Exceptions\InvalidPlaceId;
+use Warrior\Core\Exceptions\InvalidBlockId;
 use Warrior\Core\Direction;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Warrior\Core\Event\WorldDescription;
 use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Action;
+use Warrior\Core\BLock\Air;
+use Warrior\Core\BLock\Wall;
+use Warrior\Core\Block;
 
 class Line implements World
 {
@@ -19,63 +22,68 @@ class Line implements World
     
     private
         $dispatcher,
-        $places,
+        $blocks,
         $mobs;
     
     public function __construct($size = self::DEFAULT_SIZE)
     {
         $this->dispatcher = new EventDispatcher();
-        $this->initializePlaces($size);
+        $this->initializeBlocks($size);
         $this->mobs = array();
     }
     
-    private function initializePlaces($size)
+    private function initializeBlocks($size)
     {
-        $this->places = new \SplFixedArray($size);
+        $this->blocks = new \SplFixedArray($size);
         
-        for($i = 0; $i < $size; $i++)
+        $lastId = $size - 1;
+        for($i = 1; $i < $lastId; $i++)
         {
-            $this->places[$i] = null;
+            $this->blocks[$i] = new Air();
         }
+        
+        $this->blocks[0] = new Wall();
+        $this->blocks[$lastId] = new Wall();
     }
     
-    public function addMob(Mob $mob, $placeId)
+    public function addMob(Mob $mob, $blockId)
     {
         $this->mobs[] = $mob;
-        $this->setMobAt($mob, $placeId);
+        $this->setMobAt($mob, $blockId);
         
         return $this;
     }
     
-    private function setMobAt($mob, $placeId)
+    private function setMobAt($mob, $blockId)
     {
-        $this->checkPlaceIdValidity($placeId);
+        $this->checkBlockIdValidity($blockId);
         
-        if($this->isFree($placeId))
+        $block = $this->blocks[$blockId];
+        if($this->isFree($block))
         {
-            $this->places[$placeId] = $mob;
+            $block->setMob($mob);
         }
     }
         
-    private function checkPlaceIdValidity($placeId)
+    private function checkBlockIdValidity($blockId)
     {
-        if(! $this->placeExists($placeId))
+        if(! $this->blockExists($blockId))
         {
-            throw new InvalidPlaceId($placeId);
+            throw new InvalidBlockId($blockId);
         }
     }
     
-    private function placeExists($placeId)
+    private function blockExists($blockId)
     {
-        return $this->places->offsetExists($placeId);    
+        return $this->blocks->offsetExists($blockId);    
     }
         
-    private function isFree($placeId)
+    private function isFree(Block $block)
     {
-        return $this->places[$placeId] === null;
+        return $block->isReachable() && (! $block->hasMob());
     }
     
-    public function getNextPlaceId($placeId, $direction)
+    public function getNextBlock($blockId, $direction)
     {
         $modifier = 1;
         if($direction === Direction::BACKWARD)
@@ -83,18 +91,18 @@ class Line implements World
             $modifier = -1;
         }
         
-        $placeId += $modifier;
+        $blockId += $modifier;
         
-        return $this->placeExists($placeId) ? $placeId : false;
+        return $this->blockExists($blockId) ? $this->blocks[$blockId] : false;
     }
     
-    public function getMobPlaceId(Mob $mob)
+    public function getMobBlockId(Mob $mob)
     {
-        foreach($this->places as $placeId => $place)
+        foreach($this->blocks as $blockId => $block)
         {
-            if($place === $mob)
+            if($block->hasMob() && $block->getMob() === $mob)
             {
-                return $placeId;
+                return $blockId;
             }
         }
         
@@ -103,25 +111,21 @@ class Line implements World
     
     public function move(Mob $mob, $direction)
     {
-        $placeId = $this->getMobPlaceId($mob);
-        $nextPlaceid = $this->getNextPlaceId($placeId, $direction);
+        $blockId = $this->getMobBlockId($mob);
+        $block = $this->blocks[$blockId];
+        $nextBlock = $this->getNextBlock($blockId, $direction);
     
-        if($nextPlaceid !== false)
+        if($nextBlock instanceof Block)
         {
-            if($this->isFree($nextPlaceid))
+            if($this->isFree($nextBlock))
             {
-                $this->freePlace($placeId);
-                $this->setMobAt($mob, $nextPlaceid);
+                $block->removeMob();
+                $nextBlock->setMob($mob);
             }
         }
         
         $this->notifyMobHasMoved($mob, $direction);
         $this->notifyWorldChange();
-    }
-    
-    private function freePlace($placeId)
-    {
-        $this->places[$placeId] = null;
     }
     
     public function addEventSubscriber(EventSubscriberInterface $subscriber)
@@ -138,7 +142,7 @@ class Line implements World
     
     private function notifyWorldChange($eventName = 'world.changed')
     {
-        $this->dispatcher->dispatch($eventName, new WorldDescription($this->places->toArray()));
+        $this->dispatcher->dispatch($eventName, new WorldDescription($this->blocks->toArray()));
     }
     
     private function notifyMobHasMoved(Mob $mob, $direction)

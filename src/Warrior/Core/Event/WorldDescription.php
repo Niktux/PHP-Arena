@@ -7,15 +7,15 @@ use Symfony\Component\EventDispatcher\Event;
 class WorldDescription extends Event
 {
     private
-        $places;
+        $blocks;
     
-    public function __construct(array $places)
+    public function __construct(array $blocks)
     {
-        $this->places = $places;
+        $this->blocks = $blocks;
     }    
     
-    public function getPlaces()
+    public function getBlocks()
     {
-        return $this->places;
+        return $this->blocks;
     }
 }

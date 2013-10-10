@@ -14,17 +14,17 @@ class Tight implements WorldSensor
     
     private 
         $world,
-        $sensorPlaceId;
+        $sensorBlockId;
     
     public function __construct(World $w, Mob $mob)
     {
         $this->mob = $mob;
         $this->world = $w;
-        $this->sensorPlaceId = $w->getMobPlaceId($mob);
+        $this->sensorBlockId = $w->getMobBlockId($mob);
     }
     
     public function look($direction = Direction::FORWARD)
     {
-        return $this->world->getNextPlaceId($this->sensorPlaceId, $direction);
+        return $this->world->getNextBlock($this->sensorBlockId, $direction);
     }
 }

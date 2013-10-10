@@ -10,11 +10,11 @@ use Warrior\Core\Mobs\Filter\PlayerFilterIterator;
 class ExitReached implements EndConditionChecker
 {
     private
-        $exitPlaceId;
+        $exitBlockId;
     
-    public function __construct($exitPlaceId)
+    public function __construct($exitBlockId)
     {
-        $this->exitPlaceId = $exitPlaceId;
+        $this->exitBlockId = $exitBlockId;
     }
     
     public function check(Game $g)
@@ -25,9 +25,9 @@ class ExitReached implements EndConditionChecker
         
         foreach($players as $player)
         {
-            $playerPlaceId = $w->getMobPlaceId($player);
+            $playerBlockId = $w->getMobBlockId($player);
             
-            if($playerPlaceId === $this->exitPlaceId)
+            if($playerBlockId === $this->exitBlockId)
             {
                 throw new GameEndCondition(sprintf('%s WINS', $player->getName()));
             }

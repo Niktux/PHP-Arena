@@ -8,6 +8,7 @@ use Warrior\Core\Mob;
 use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Direction;
 use Warrior\Core\Player;
+use Warrior\Core\BLock\Wall;
 
 class Cli implements EventSubscriberInterface
 {
@@ -22,19 +23,28 @@ class Cli implements EventSubscriberInterface
     
     public function onWorldChange(WorldDescription $event)
     {
-        foreach($event->getPlaces() as $place)
+        foreach($event->getBlocks() as $block)
         {
-            if($place instanceof Player)
+            if($block->hasMob() === true)
             {
-                echo "P";
+                $mob = $block->getMob();
+                
+                if($mob instanceof Player)
+                {
+                    echo 'P';
+                }
+                elseif($mob instanceof Mob)
+                {
+                    echo 'M';
+                }
             }
-            elseif($place instanceof Mob)
+            elseif($block instanceof Wall)
             {
-                echo "M";
+                echo '|';
             }
             else
             {
-                echo "-";
+                echo '_';
             }
         }
         

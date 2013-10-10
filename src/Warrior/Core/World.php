@@ -6,15 +6,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 interface World
 {
-    public function addMob(Mob $mob, $placeId);
+    public function addMob(Mob $mob, $BlockId);
     
     /**
      * @return \ArrayIterator
      */
     public function getMobs();
     
-    public function getNextPlaceId($placeId, $direction);
-    public function getMobPlaceId(Mob $mob);
+    public function getNextBlock($blockId, $direction);
+    public function getMobBlockId(Mob $mob);
     
     public function move(Mob $mob, $direction);
     

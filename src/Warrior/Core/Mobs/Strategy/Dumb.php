@@ -8,6 +8,7 @@ use Warrior\Core\WorldSensor;
 use Warrior\Core\Direction;
 use Warrior\Core\MobStrategy;
 use Warrior\Core\Action\Move;
+use Warrior\Core\Block;
 
 class Dumb implements MobStrategy
 {
@@ -21,9 +22,15 @@ class Dumb implements MobStrategy
     
     public function play(WorldSensor $sensor)
     {
-        if($sensor->look($this->direction) === false)
+        $block = $sensor->look($this->direction);
+        
+        if(!$block instanceof Block)
         {
             $this->changeDirection(); 
+        }
+        else if(! $block->isReachable())
+        {
+            $this->changeDirection();
         }
 
         return new Move($this->direction);
@@ -31,6 +38,13 @@ class Dumb implements MobStrategy
     
     private function changeDirection()
     {
-        $this->direction = $this->direction === Direction::BACKWARD ? Direction::FORWARD : Direction::BACKWARD;
+        if($this->direction === Direction::BACKWARD)
+        {
+            $this->direction = Direction::FORWARD;
+        }
+        else 
+        {
+            $this->direction = Direction::BACKWARD;
+        }
     }
 }
