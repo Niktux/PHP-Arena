@@ -11,13 +11,11 @@ class Game
 {
     private
         $world,
-        $step,
         $endConditionCheckers;
     
     public function __construct(World $w)
     {
         $this->world = $w;
-        $this->step = 0;
         $this->endConditionCheckers = array();
     }
     
@@ -36,7 +34,7 @@ class Game
         
         try
         {
-            while($this->nextStep())
+            while(true)
             {
                 $this->checkEndConditions();
                 
@@ -48,13 +46,6 @@ class Game
         {
             echo "End : " . $e->getMessage();
         }
-    }
-    
-    private function nextStep()
-    {
-        $this->step++;
-        
-        return true;
     }
     
     private function checkEndConditions()
@@ -78,11 +69,6 @@ class Game
         
             $action->execute($mob, $this->world);
         }
-    }
-    
-    public function getStep()
-    {
-        return $this->step;
     }
     
     /**
