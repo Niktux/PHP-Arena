@@ -1,6 +1,6 @@
 <?php
 
-namespace Warrior\Mobs;
+namespace Warrior\Mobs\Strategy;
 
 use Warrior\Core\Mob;
 use Warrior\Core\World;

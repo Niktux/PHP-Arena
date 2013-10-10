@@ -6,15 +6,19 @@ use Warrior\Core\WorldSensor;
 use Warrior\Core\World;
 use Warrior\Core\Direction;
 use Warrior\Core\Mob;
+use Warrior\Mobs\MobAware;
 
 class Tight implements WorldSensor
 {
+    use MobAware;
+    
     private 
         $world,
         $sensorPlaceId;
     
     public function __construct(World $w, Mob $mob)
     {
+        $this->mob = $mob;
         $this->world = $w;
         $this->sensorPlaceId = $w->getMobPlaceId($mob);
     }

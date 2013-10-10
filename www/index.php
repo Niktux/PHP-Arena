@@ -6,12 +6,12 @@ use Warrior\Core\EndConditionCheckers\Timeout;
 use Warrior\World\Line;
 use Warrior\Renderer\Line\Cli;
 use Warrior\Core\EndConditionCheckers\ExitReached;
-use Warrior\Core\Mob;
-use Warrior\Mobs\Dumb;
+use Warrior\Mobs\Unit;
+use Warrior\Mobs\Strategy\Dumb;
 
 require '../vendor/autoload.php';
 
-$player = new Mob(10);
+$player = new Unit(10);
 $player->setStrategy(new Dumb());
 
 $world = new Line(10);

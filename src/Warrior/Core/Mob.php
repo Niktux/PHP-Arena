@@ -2,51 +2,14 @@
 
 namespace Warrior\Core;
 
-class Mob
+interface Mob extends MobDescription
 {
-    private 
-        $health,
-        $strategy;
-    
-    public function __construct($health)
-    {
-        if($health <= 0)
-        {
-            throw new \InvalidArgumentException(sprintf('Invalid health (%d)', $health));
-        }
-        
-        $this->health = $health;
-    }
-    
-    public function getHealth()
-    {
-        return $this->health;
-    }
-    
-    public function isDead()
-    {
-        return $this->health <= 0;
-    }
-    
-    public function setStrategy(MobStrategy $strategy)
-    {
-        $this->strategy = $strategy;
-        
-        return $this;
-    }
-    
+    public function setStrategy(MobStrategy $strategy);
+
     /**
      * @param WorldSensor $sensor
      * @return \Warrior\Core\Action
      */
-    public function play(WorldSensor $sensor)
-    {
-        if($this->strategy instanceof MobStrategy)
-        {
-            return $this->strategy->play($sensor);
-        }
-        
-        return new Action\Wait();
-    }
+    public function play(WorldSensor $sensor);
 }
 

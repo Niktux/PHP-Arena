@@ -2,7 +2,7 @@
 
 namespace Warrior\Core;
 
-interface WorldSensor
+interface WorldSensor extends MobDescription
 {
     public function look($direction = Direction::FORWARD);
 }
