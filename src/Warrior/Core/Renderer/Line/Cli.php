@@ -7,6 +7,7 @@ use Warrior\Core\Event\WorldDescription;
 use Warrior\Core\Mob;
 use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Direction;
+use Warrior\Core\Player;
 
 class Cli implements EventSubscriberInterface
 {
@@ -23,7 +24,11 @@ class Cli implements EventSubscriberInterface
     {
         foreach($event->getPlaces() as $place)
         {
-            if($place instanceof Mob)
+            if($place instanceof Player)
+            {
+                echo "P";
+            }
+            elseif($place instanceof Mob)
             {
                 echo "M";
             }
