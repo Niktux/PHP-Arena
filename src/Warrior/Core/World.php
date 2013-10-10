@@ -8,8 +8,10 @@ interface World
 {
     public function addMob(Mob $mob, $placeId);
     
-    public function getPlayer();
-    public function setPlayer(Mob $player, $placeId = null);
+    /**
+     * @return \ArrayIterator
+     */
+    public function getMobs();
     
     public function getNextPlaceId($placeId, $direction);
     public function getMobPlaceId(Mob $mob);

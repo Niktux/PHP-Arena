@@ -19,17 +19,14 @@ class Line implements World
     
     private
         $dispatcher,
-        $player,
         $places,
-        $mobs,
-        $startingPoint;
+        $mobs;
     
     public function __construct($size = self::DEFAULT_SIZE)
     {
         $this->dispatcher = new EventDispatcher();
         $this->initializePlaces($size);
         $this->mobs = array();
-        $this->startingPoint = 0;
     }
     
     private function initializePlaces($size)
@@ -42,32 +39,12 @@ class Line implements World
         }
     }
     
-    public function setStartingPoint($placeId)
-    {
-        $this->checkPlaceIdValidity($placeId);
-        
-        $this->startingPoint = $placeId;
-        
-        return $this;
-    }
-    
-    public function setPlayer(Mob $player, $placeId = null)
-    {
-        if($placeId === null)
-        {
-            $placeId = $this->startingPoint;
-        }
-        
-        $this->player = $player;
-        $this->setMobAt($player, $placeId);
-        
-        return $this;
-    }
-    
     public function addMob(Mob $mob, $placeId)
     {
-        $this->mobs = $mob;
+        $this->mobs[] = $mob;
         $this->setMobAt($mob, $placeId);
+        
+        return $this;
     }
     
     private function setMobAt($mob, $placeId)
@@ -96,11 +73,6 @@ class Line implements World
     private function isFree($placeId)
     {
         return $this->places[$placeId] === null;
-    }
-    
-    public function getPlayer()
-    {
-        return $this->player;    
     }
     
     public function getNextPlaceId($placeId, $direction)
@@ -161,16 +133,21 @@ class Line implements World
     
     public function startGame()
     {
-        $this->notifyWorldChange();
+        $this->notifyWorldChange('world.init');
     }
     
-    private function notifyWorldChange()
+    private function notifyWorldChange($eventName = 'world.changed')
     {
-        $this->dispatcher->dispatch('world.changed', new WorldDescription($this->places->toArray()));
+        $this->dispatcher->dispatch($eventName, new WorldDescription($this->places->toArray()));
     }
     
     private function notifyMobHasMoved(Mob $mob, $direction)
     {
         $this->dispatcher->dispatch('mob.moved', new MobMovement($mob, $direction));
+    }
+    
+    public function getMobs()
+    {
+        return new \ArrayIterator($this->mobs);
     }
 }

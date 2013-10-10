@@ -12,6 +12,7 @@ class Cli implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            'world.init' => array('onWorldChange', 0),
             'world.changed' => array('onWorldChange', 0),
             'mob.moved' => array('onMobMove', 0),
         );

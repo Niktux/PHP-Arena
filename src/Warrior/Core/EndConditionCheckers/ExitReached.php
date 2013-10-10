@@ -5,6 +5,7 @@ namespace Warrior\Core\EndConditionCheckers;
 use Warrior\Core\EndConditionChecker;
 use Warrior\Core\Game;
 use Warrior\Core\Exceptions\GameEndCondition;
+use Warrior\Mobs\Filter\PlayerFilterIterator;
 
 class ExitReached implements EndConditionChecker
 {
@@ -19,11 +20,17 @@ class ExitReached implements EndConditionChecker
     public function check(Game $g)
     {
         $w = $g->getWorld();
-        $playerPlaceId = $w->getMobPlaceId($w->getPlayer());
         
-        if($playerPlaceId === $this->exitPlaceId)
+        $players = new PlayerFilterIterator($w->getMobs());
+        
+        foreach($players as $player)
         {
-            throw new GameEndCondition('VICTORY');
+            $playerPlaceId = $w->getMobPlaceId($player);
+            
+            if($playerPlaceId === $this->exitPlaceId)
+            {
+                throw new GameEndCondition(sprintf('%s WINS', $player->getName()));
+            }
         }
     }    
 }

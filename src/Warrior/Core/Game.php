@@ -4,6 +4,7 @@ namespace Warrior\Core;
 
 use Warrior\WorldSensor\Tight;
 use Warrior\Event\WorldDescription;
+use Warrior\Mobs\Filter\PlayerFilterIterator;
 
 class Game
 {
@@ -29,12 +30,8 @@ class Game
     public function launch()
     {
         $this->world->startGame();
-        $player = $this->world->getPlayer();
+        $mobs = $this->world->getMobs();
         
-        if(! $player instanceof Mob)
-        {
-            throw new \RuntimeException('Invalid player');
-        }
         
         try
         {
@@ -42,13 +39,18 @@ class Game
             {
                 $this->checkEndConditions();
                 
-                $action = $player->play(new Tight($this->world, $player));
-                if(! $action instanceof Action)
+                $players = new PlayerFilterIterator($mobs);
+                foreach($players as $player)
                 {
-                    throw new \RuntimeException('Invalid action');
+                    $action = $player->play(new Tight($this->world, $player));
+                    
+                    if(! $action instanceof Action)
+                    {
+                        throw new \RuntimeException('Invalid action');
+                    }
+                    
+                    $action->execute($player, $this->world);
                 }
-                
-                $action->execute($player, $this->world);
             }
         }
         catch(Exceptions\GameEndCondition $e)

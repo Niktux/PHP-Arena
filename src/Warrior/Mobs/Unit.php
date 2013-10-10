@@ -15,12 +15,12 @@ class Unit implements Mob
     
     public function __construct($health)
     {
-        if($health <= 0)
+        if(! is_numeric($health) || $health <= 0)
         {
             throw new \InvalidArgumentException(sprintf('Invalid health (%d)', $health));
         }
         
-        $this->health = $health;
+        $this->health = (int) $health;
     }
     
     public function getHealth()
@@ -54,4 +54,3 @@ class Unit implements Mob
         return new Wait();
     }
 }
-
