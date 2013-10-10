@@ -8,7 +8,7 @@ use Warrior\Core\Mob;
 use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Direction;
 use Warrior\Core\Player;
-use Warrior\Core\BLock\Wall;
+use Warrior\Core\Block\Wall;
 
 class Cli implements EventSubscriberInterface
 {

@@ -11,8 +11,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Warrior\Core\Event\WorldDescription;
 use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Action;
-use Warrior\Core\BLock\Air;
-use Warrior\Core\BLock\Wall;
+use Warrior\Core\Block\Air;
+use Warrior\Core\Block\Wall;
 use Warrior\Core\Block;
 
 class Line implements World
