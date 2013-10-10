@@ -1,6 +1,6 @@
 <?php
 
-namespace Warrior\Mobs;
+namespace Warrior\Core\Mobs;
 
 class Player extends Unit implements \Warrior\Core\Player
 {

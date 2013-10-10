@@ -5,7 +5,7 @@ namespace Warrior\Core\EndConditionCheckers;
 use Warrior\Core\EndConditionChecker;
 use Warrior\Core\Game;
 use Warrior\Core\Exceptions\GameEndCondition;
-use Warrior\Mobs\Filter\PlayerFilterIterator;
+use Warrior\Core\Mobs\Filter\PlayerFilterIterator;
 
 class ExitReached implements EndConditionChecker
 {

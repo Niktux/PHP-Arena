@@ -1,6 +1,7 @@
 <?php
 
-namespace Warrior\Event;
+namespace Warrior\Core\Event;
+
 use Symfony\Component\EventDispatcher\Event;
 use Warrior\Core\Mob;
 

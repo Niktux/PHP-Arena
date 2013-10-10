@@ -2,10 +2,10 @@
 
 namespace Warrior\Core;
 
-use Warrior\WorldSensor\Tight;
-use Warrior\Event\WorldDescription;
-use Warrior\Mobs\Filter\PlayerFilterIterator;
-use Warrior\Mobs\Filter\BotFilterIterator;
+use Warrior\Core\WorldSensor\Tight;
+use Warrior\Core\Event\WorldDescription;
+use Warrior\Core\Mobs\Filter\PlayerFilterIterator;
+use Warrior\Core\Mobs\Filter\BotFilterIterator;
 
 class Game
 {

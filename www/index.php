@@ -3,11 +3,11 @@
 use Warrior\Core\Game;
 use Warrior\Core\Exceptions as Exceptions;
 use Warrior\Core\EndConditionCheckers\Timeout;
-use Warrior\World\Line;
-use Warrior\Renderer\Line\Cli;
+use Warrior\Core\World\Line;
+use Warrior\Core\Renderer\Line\Cli;
 use Warrior\Core\EndConditionCheckers\ExitReached;
-use Warrior\Mobs\Strategy\Dumb;
-use Warrior\Mobs\Player;
+use Warrior\Core\Mobs\Strategy\Dumb;
+use Warrior\Core\Mobs\Player;
 
 require '../vendor/autoload.php';
 

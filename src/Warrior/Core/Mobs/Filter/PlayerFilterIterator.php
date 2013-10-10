@@ -1,6 +1,6 @@
 <?php
 
-namespace Warrior\Mobs\Filter;
+namespace Warrior\Core\Mobs\Filter;
 
 use Warrior\Core\Player;
 

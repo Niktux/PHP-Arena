@@ -1,10 +1,11 @@
 <?php
 
-namespace Warrior\Renderer\Line;
+namespace Warrior\Core\Renderer\Line;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Warrior\Event\WorldDescription;
+use Warrior\Core\Event\WorldDescription;
 use Warrior\Core\Mob;
-use Warrior\Event\MobMovement;
+use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Direction;
 
 class Cli implements EventSubscriberInterface

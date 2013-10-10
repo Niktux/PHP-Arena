@@ -1,12 +1,12 @@
 <?php
 
-namespace Warrior\WorldSensor;
+namespace Warrior\Core\WorldSensor;
 
 use Warrior\Core\WorldSensor;
 use Warrior\Core\World;
 use Warrior\Core\Direction;
 use Warrior\Core\Mob;
-use Warrior\Mobs\MobAware;
+use Warrior\Core\Mobs\MobAware;
 
 class Tight implements WorldSensor
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace Warrior\Mobs\Filter;
+namespace Warrior\Core\Mobs\Filter;
 
 use Warrior\Core\Player;
+use Warrior\Core\Mob;
 
 class BotFilterIterator extends \FilterIterator
 {

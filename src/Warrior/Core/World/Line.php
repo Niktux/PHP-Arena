@@ -1,6 +1,6 @@
 <?php
 
-namespace Warrior\World;
+namespace Warrior\Core\World;
 
 use Warrior\Core\World;
 use Warrior\Core\Mob;
@@ -8,8 +8,8 @@ use Warrior\Core\Exceptions\InvalidPlaceId;
 use Warrior\Core\Direction;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Warrior\Event\WorldDescription;
-use Warrior\Event\MobMovement;
+use Warrior\Core\Event\WorldDescription;
+use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Action;
 
 class Line implements World
