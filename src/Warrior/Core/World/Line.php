@@ -163,23 +163,20 @@ class Line implements World
         return new \ArrayIterator($this->mobs);
     }
     
-    public function attack(Mob $attacker, Mob $attackee)
+    public function attack(Mob $attacker, $direction)
     {
-        $blockA = $this->getMobBlock($attacker);    
-        $blockD = $this->getMobBlock($attackee);
-
-        if(! $this->areBlocksAdjacent($blockA, $blockD))
-        {
-            return false;
-        }
+        $target = $this->getNextBlock($attacker, $direction);
         
-        // TODO injury attackee
-    }
-    
-    private function areBlocksAdjacent($block, $block)
-    {
-        // FIXME stub
-        return false;       
+        if($target instanceof Block)
+        {
+            if($target->hasMob())
+            {
+                $mob = $target->getMob();
+                
+                // TODO injury attackee (tmp echo code)
+                echo "attack\n";
+            }
+        }
     }
     
     public function getBlock($blockId)

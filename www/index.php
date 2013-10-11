@@ -15,9 +15,9 @@ require '../vendor/autoload.php';
 $player = new Player('bob', 10);
 $player->setStrategy(new Dumb());
 
-$world = new Line(15);
+$world = new Line(12);
 $world->addMob($player, 5)
-      //->addMob(new Goblin(), 3)
+      ->addMob(new Goblin(), 3)
       ->addEventSubscriber(new Cli());
 
 $g = new Game($world);

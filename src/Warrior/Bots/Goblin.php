@@ -3,7 +3,7 @@
 namespace Warrior\Bots;
 
 use Warrior\Core\Mobs\Unit;
-use Warrior\Core\Mobs\Strategy\Dumb;
+use Warrior\Core\Mobs\Strategy\WaitAndAttack;
 
 class Goblin extends Unit
 {
@@ -11,6 +11,6 @@ class Goblin extends Unit
     {
         parent::__construct(10);
         
-        $this->setStrategy(new Dumb());
+        $this->setStrategy(new WaitAndAttack());
     }
 }

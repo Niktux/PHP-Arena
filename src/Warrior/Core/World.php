@@ -18,7 +18,7 @@ interface World
     public function getNextBlock(Mob $mob, $direction);
         
     public function move(Mob $mob, $direction);
-    public function attack(Mob $attacker, Mob $attackee);
+    public function attack(Mob $attacker, $direction);
     
     public function addEventSubscriber(EventSubscriberInterface $subscriber);
     public function startGame();

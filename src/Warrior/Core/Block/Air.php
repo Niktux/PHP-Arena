@@ -17,7 +17,7 @@ class Air implements Block
     
     public function isReachable()
     {
-        return true;
+        return ! $this->hasMob();
     }    
     
     public function setMob(Mob $mob)
