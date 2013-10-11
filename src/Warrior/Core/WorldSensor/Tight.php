@@ -7,6 +7,7 @@ use Warrior\Core\World;
 use Warrior\Core\Direction;
 use Warrior\Core\Mob;
 use Warrior\Core\Mobs\MobAware;
+use Warrior\Core\BlockInfo;
 
 class Tight implements WorldSensor
 {
@@ -25,6 +26,8 @@ class Tight implements WorldSensor
     
     public function look($direction = Direction::FORWARD)
     {
-        return $this->world->getNextBlock($this->sensorBlockId, $direction);
+        $block = $this->world->getNextBlock($this->sensorBlockId, $direction);
+        
+        return new BlockInfo($block);
     }
 }

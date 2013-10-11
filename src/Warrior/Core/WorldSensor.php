@@ -4,6 +4,8 @@ namespace Warrior\Core;
 
 interface WorldSensor extends MobDescription
 {
-    // FIXME will return BlockDescription instead of Block (wrapper)
+    /**
+     * @return BlockInfo
+     */
     public function look($direction = Direction::FORWARD);
 }
