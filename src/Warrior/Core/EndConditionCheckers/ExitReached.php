@@ -6,15 +6,16 @@ use Warrior\Core\EndConditionChecker;
 use Warrior\Core\Game;
 use Warrior\Core\Exceptions\GameEndCondition;
 use Warrior\Core\Mobs\Filter\PlayerFilterIterator;
+use Warrior\Core\Block;
 
 class ExitReached implements EndConditionChecker
 {
     private
-        $exitBlockId;
+        $exitBlock;
     
-    public function __construct($exitBlockId)
+    public function __construct(Block $exitBlock)
     {
-        $this->exitBlockId = $exitBlockId;
+        $this->exitBlock = $exitBlock;
     }
     
     public function check(Game $g)
@@ -25,9 +26,9 @@ class ExitReached implements EndConditionChecker
         
         foreach($players as $player)
         {
-            $playerBlockId = $w->getMobBlockId($player);
+            $playerBlock = $w->getMobBlock($player);
             
-            if($playerBlockId === $this->exitBlockId)
+            if($playerBlock === $this->exitBlock)
             {
                 throw new GameEndCondition(sprintf('%s WINS', $player->getName()));
             }

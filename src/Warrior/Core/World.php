@@ -13,10 +13,12 @@ interface World
      */
     public function getMobs();
     
-    public function getNextBlock($blockId, $direction);
-    public function getMobBlockId(Mob $mob);
-    
+    public function getBlock($blockId);
+    public function getMobBlock(Mob $mob);
+    public function getNextBlock(Mob $mob, $direction);
+        
     public function move(Mob $mob, $direction);
+    public function attack(Mob $attacker, Mob $attackee);
     
     public function addEventSubscriber(EventSubscriberInterface $subscriber);
     public function startGame();

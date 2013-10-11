@@ -22,6 +22,6 @@ $world->addMob($player, 5)
 
 $g = new Game($world);
 $g->addEndConditionChecker(new Timeout(15))
-  ->addEndConditionChecker(new ExitReached(0));
+  ->addEndConditionChecker(new ExitReached($world->getBlock(0)));
 
 $g->launch();

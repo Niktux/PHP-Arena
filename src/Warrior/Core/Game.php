@@ -31,7 +31,6 @@ class Game
         $this->world->startGame();
         $mobs = $this->world->getMobs();
         
-        
         try
         {
             while(true)

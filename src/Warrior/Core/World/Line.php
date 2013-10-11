@@ -83,8 +83,10 @@ class Line implements World
         return $block->isReachable() && (! $block->hasMob());
     }
     
-    public function getNextBlock($blockId, $direction)
+    public function getNextBlock(Mob $mob, $direction)
     {
+        list($blockId, $block) = $this->searchMob($mob);
+        
         $modifier = 1;
         if($direction === Direction::BACKWARD)
         {
@@ -96,13 +98,20 @@ class Line implements World
         return $this->blockExists($blockId) ? $this->blocks[$blockId] : false;
     }
     
-    public function getMobBlockId(Mob $mob)
+    public function getMobBlock(Mob $mob)
+    {
+        list($blockId, $block) = $this->searchMob($mob);
+        
+        return $block;
+    }
+    
+    private function searchMob(Mob $mob)
     {
         foreach($this->blocks as $blockId => $block)
         {
             if($block->hasMob() && $block->getMob() === $mob)
             {
-                return $blockId;
+                return array($blockId, $block);
             }
         }
         
@@ -111,9 +120,8 @@ class Line implements World
     
     public function move(Mob $mob, $direction)
     {
-        $blockId = $this->getMobBlockId($mob);
-        $block = $this->blocks[$blockId];
-        $nextBlock = $this->getNextBlock($blockId, $direction);
+        $block = $this->getMobBlock($mob);
+        $nextBlock = $this->getNextBlock($mob, $direction);
     
         if($nextBlock instanceof Block)
         {
@@ -153,5 +161,31 @@ class Line implements World
     public function getMobs()
     {
         return new \ArrayIterator($this->mobs);
+    }
+    
+    public function attack(Mob $attacker, Mob $attackee)
+    {
+        $blockA = $this->getMobBlock($attacker);    
+        $blockD = $this->getMobBlock($attackee);
+
+        if(! $this->areBlocksAdjacent($blockA, $blockD))
+        {
+            return false;
+        }
+        
+        // TODO injury attackee
+    }
+    
+    private function areBlocksAdjacent($block, $block)
+    {
+        // FIXME stub
+        return false;       
+    }
+    
+    public function getBlock($blockId)
+    {
+        $this->checkBlockIdValidity($blockId);
+        
+        return $this->blocks[$blockId];
     }
 }
