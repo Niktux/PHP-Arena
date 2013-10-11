@@ -5,3 +5,6 @@
 
 # Dependencies
 vendor/
+
+# Vagrant runtime files
+env/.vagrant/

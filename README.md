@@ -1,5 +1,5 @@
-warrior
-=======
+PHP Arena [![Build Status](http://jenkins.deboo.fr/job/PHP_Arena/badge/icon)](http://jenkins.deboo.fr/job/PHP_Arena/)
+=========
 
 Requirements
 ------------
