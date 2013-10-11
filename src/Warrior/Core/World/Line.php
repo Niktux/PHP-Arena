@@ -172,9 +172,7 @@ class Line implements World
             if($target->hasMob())
             {
                 $mob = $target->getMob();
-                
-                // TODO injury attackee (tmp echo code)
-                echo "attack\n";
+                $mob->injury($attacker->getAttackStrength());
             }
         }
     }

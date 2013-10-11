@@ -15,8 +15,8 @@ trait MobAware
         return $this->mob->getHealth();
     }
     
-    public function isDead()
+    public function isAlive()
     {
-        return $this->mob->isDead();
+        return $this->mob->isAlive();
     }
 }

@@ -11,5 +11,10 @@ interface Mob extends MobDescription
      * @return \Warrior\Core\Action
      */
     public function play(WorldSensor $sensor);
+    
+    public function injury($modifier);
+    
+    public function getAttackStrength();
+    public function getShootStrength();
 }
 

@@ -24,6 +24,8 @@ class Cli implements EventSubscriberInterface
     
     public function onWorldChange(WorldDescription $event)
     {
+        $playerStr = '';
+        
         foreach($event->getBlocks() as $block)
         {
             if($block->hasMob() === true)
@@ -32,9 +34,14 @@ class Cli implements EventSubscriberInterface
                 
                 if($mob instanceof Player)
                 {
-                    echo 'P';
+                    if($mob->isAlive())
+                    {
+                        echo 'P';
+                    }
+                    
+                    $playerStr .= sprintf(', %s [%d]', $mob->getName(), $mob->getHealth());
                 }
-                elseif($mob instanceof Mob)
+                elseif($mob instanceof Mob && $mob->isAlive())
                 {
                     if($mob instanceof Goblin)
                     {
@@ -56,6 +63,7 @@ class Cli implements EventSubscriberInterface
             }
         }
         
+        echo $playerStr;
         $this->lf();
     }
     

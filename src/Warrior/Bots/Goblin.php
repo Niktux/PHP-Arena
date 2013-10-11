@@ -12,5 +12,7 @@ class Goblin extends Unit
         parent::__construct(10);
         
         $this->setStrategy(new WaitAndAttack());
+        
+        $this->attackStrength = 3;
     }
 }

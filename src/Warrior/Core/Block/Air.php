@@ -42,6 +42,6 @@ class Air implements Block
     
     public function hasMob()
     {
-        return $this->mob instanceof Mob;
+        return $this->mob instanceof Mob && $this->mob->isAlive();
     }
 } 
