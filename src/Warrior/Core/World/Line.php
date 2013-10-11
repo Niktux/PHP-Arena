@@ -85,7 +85,7 @@ class Line implements World
     
     public function getNextBlock(Mob $mob, $direction)
     {
-        list($blockId, $block) = $this->searchMob($mob);
+        list($blockId,) = $this->searchMob($mob);
         
         $modifier = 1;
         if($direction === Direction::BACKWARD)
@@ -100,7 +100,7 @@ class Line implements World
     
     public function getMobBlock(Mob $mob)
     {
-        list($blockId, $block) = $this->searchMob($mob);
+        list(, $block) = $this->searchMob($mob);
         
         return $block;
     }
