@@ -9,6 +9,7 @@ use Warrior\Core\Event\MobMovement;
 use Warrior\Core\Direction;
 use Warrior\Core\Player;
 use Warrior\Core\Block\Wall;
+use Warrior\Bots\Goblin;
 
 class Cli implements EventSubscriberInterface
 {
@@ -35,7 +36,14 @@ class Cli implements EventSubscriberInterface
                 }
                 elseif($mob instanceof Mob)
                 {
-                    echo 'M';
+                    if($mob instanceof Goblin)
+                    {
+                        echo 'G';
+                    }
+                    else
+                    {
+                        echo 'M';
+                    }
                 }
             }
             elseif($block instanceof Wall)
