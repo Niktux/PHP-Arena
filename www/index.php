@@ -9,19 +9,38 @@ use Warrior\Core\EndConditionCheckers\ExitReached;
 use Warrior\Core\Mobs\Strategy\Dumb;
 use Warrior\Core\Mobs\Player;
 use Warrior\Bots\Goblin;
+use Warrior\Core\MobStrategy;
+use Warrior\Core\WorldSensor;
+use Warrior\Core\Action\Attack;
+use Warrior\Core\Action\Move;
 
 require '../vendor/autoload.php';
 
-$player = new Player('bob', 10);
+$player = new Player('Spartacus', 20);
 $player->setStrategy(new Dumb());
+/*
+$level = new RW1();
+$level->addEventSubscriber(new Cli())
+      ->launch($player);
 
-$world = new Line(12);
-$world->addMob($player, 5)
-      ->addMob(new Goblin(), 8)
-      ->addEventSubscriber(new Cli());
+//*/
+class Forward implements MobStrategy
+{
+	public function play(WorldSensor $sensor)
+	{
+	    $block = $sensor->look();
+	    
+	    if($block->hasMob())
+	    {
+	        return new Attack();
+	    }
+	    
+	    return new Move();
+	}
+}
 
-$g = new Game($world);
-$g->addEndConditionChecker(new Timeout(15))
-  ->addEndConditionChecker(new ExitReached($world->getBlock(0)));
+$player->setStrategy(new Forward());
 
-$g->launch();
+$level = new Warrior\Levels\RW3();
+$level->addEventSubscriber(new Cli())
+      ->launch($player);

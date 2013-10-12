@@ -5,6 +5,6 @@ namespace Warrior\Core;
 interface Direction
 {
     const
-        FORWARD = 0,
-        BACKWARD = 1;
+        FORWARD = 'forward',
+        BACKWARD = 'backward';
 }

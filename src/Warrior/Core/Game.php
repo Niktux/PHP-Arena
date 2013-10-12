@@ -29,7 +29,6 @@ class Game
     public function launch()
     {
         $this->world->startGame();
-        $mobs = $this->world->getMobs();
         
         try
         {
@@ -37,6 +36,7 @@ class Game
             {
                 $this->checkEndConditions();
                 
+                $mobs = $this->world->getMobs();
                 $this->playMobs(new PlayerFilterIterator($mobs));
                 $this->playMobs(new BotFilterIterator($mobs));
             }

@@ -30,7 +30,7 @@ class ExitReached implements EndConditionChecker
             
             if($playerBlock === $this->exitBlock)
             {
-                throw new GameEndCondition(sprintf('%s WINS', $player->getName()));
+                throw new GameEndCondition(sprintf("%s WINS\n", $player->getName()));
             }
         }
     }    

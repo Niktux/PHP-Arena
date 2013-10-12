@@ -21,4 +21,9 @@ class BlockInfo implements Block
     {
         return $this->block->hasMob();
     }
+    
+    public function getMob()
+    {
+        return $this->block->getMob();
+    }
 }

@@ -9,7 +9,7 @@ class Goblin extends Unit
 {
     public function __construct()
     {
-        parent::__construct(10);
+        parent::__construct(12);
         
         $this->setStrategy(new WaitAndAttack());
         

@@ -10,6 +10,7 @@ use Warrior\Core\MobStrategy;
 use Warrior\Core\Block;
 use Warrior\Core\Action\Wait;
 use Warrior\Core\Action\Attack;
+use Warrior\Core\Player;
 
 class WaitAndAttack implements MobStrategy
 {
@@ -25,7 +26,10 @@ class WaitAndAttack implements MobStrategy
             {
                 if($block->hasMob())
                 {
-                    return new Attack($direction);
+                    if($block->getMob() instanceof Player)
+                    {
+                        return new Attack($direction);
+                    }
                 }
             }
         }

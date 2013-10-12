@@ -16,9 +16,9 @@ class Cli implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'world.init' => array('onWorldChange', 0),
+            'world.init'    => array('onWorldChange', 0),
             'world.changed' => array('onWorldChange', 0),
-            'mob.moved' => array('onMobMove', 0),
+            'mob.attack'    => array('onMobAttack', 0),
         );
     }
     
@@ -65,12 +65,19 @@ class Cli implements EventSubscriberInterface
         
         echo $playerStr;
         $this->lf();
+        $this->lf();
     }
     
-    public function onMobMove(MobMovement $event)
+    public function onMobAttack(MobMovement $event)
     {
-     //   echo "Mob has moved " . ($event->getDirection() === Direction::BACKWARD ? "backward" : "forward");
-     // $this->lf();
+        $mob = $event->getMob();
+        
+        echo sprintf(
+            "%s has attacked %s",
+            $mob instanceof Player ? $mob->getName() : get_class($mob),
+            $event->getDirection()
+        );
+        $this->lf();
     }
     
     private function lf()

@@ -12,7 +12,7 @@ class Timeout implements EndConditionChecker
         $step,
         $stepLimit;
     
-    public function __construct($stepLimit = 10)
+    public function __construct($stepLimit = 25)
     {
         $this->step = 0;
         $this->stepLimit = $stepLimit;
@@ -24,7 +24,7 @@ class Timeout implements EndConditionChecker
         
         if($this->step > $this->stepLimit)
         {
-            throw new GameEndCondition('Step limit has been reached');
+            throw new GameEndCondition("Step limit has been reached\n");
         }
     }    
 }

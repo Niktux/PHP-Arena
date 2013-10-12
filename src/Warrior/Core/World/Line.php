@@ -14,6 +14,7 @@ use Warrior\Core\Action;
 use Warrior\Core\Block\Air;
 use Warrior\Core\Block\Wall;
 use Warrior\Core\Block;
+use Warrior\Core\Mobs\Filter\AliveFilterIterator;
 
 class Line implements World
 {
@@ -158,9 +159,14 @@ class Line implements World
         $this->dispatcher->dispatch('mob.moved', new MobMovement($mob, $direction));
     }
     
+    private function notifyMobHasAttacked(Mob $attacker, $direction)
+    {
+        $this->dispatcher->dispatch('mob.attack', new MobMovement($attacker, $direction));
+    }
+    
     public function getMobs()
     {
-        return new \ArrayIterator($this->mobs);
+        return new AliveFilterIterator(new \ArrayIterator($this->mobs));
     }
     
     public function attack(Mob $attacker, $direction)
@@ -175,6 +181,9 @@ class Line implements World
                 $mob->injury($attacker->getAttackStrength());
             }
         }
+        
+        $this->notifyMobHasAttacked($attacker, $direction);
+        $this->notifyWorldChange();
     }
     
     public function getBlock($blockId)

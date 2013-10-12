@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 interface World
 {
-    public function addMob(Mob $mob, $BlockId);
+    public function addMob(Mob $mob, $blockId);
     
     /**
      * @return \ArrayIterator

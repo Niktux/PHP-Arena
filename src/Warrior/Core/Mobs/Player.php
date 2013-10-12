@@ -17,6 +17,9 @@ class Player extends Unit implements \Warrior\Core\Player
         }
         
         $this->name = $name;
+        
+        $this->attackStrength = 5;
+        $this->shootStrength = 2;
     }
     
     public function getName()

@@ -15,4 +15,9 @@ class Wall implements Block
     {
         return false;
     }
+    
+    public function getMob()
+    {
+        throw new \RuntimeException('Walls never have mob');
+    }
 }
