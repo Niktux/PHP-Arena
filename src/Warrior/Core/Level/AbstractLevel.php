@@ -15,10 +15,10 @@ abstract class AbstractLevel implements Level
         $this->subscribers = array();
     }
 
-	public function addEventSubscriber(EventSubscriberInterface $subscriber)
-	{
-	    $this->subscribers[] = $subscriber;
-	    
-	    return $this;
-	}
+    public function addEventSubscriber(EventSubscriberInterface $subscriber)
+    {
+        $this->subscribers[] = $subscriber;
+        
+        return $this;
+    }
 }
