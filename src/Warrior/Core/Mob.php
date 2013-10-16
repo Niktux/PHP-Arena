@@ -16,5 +16,7 @@ interface Mob extends MobDescription
     
     public function getAttackStrength();
     public function getShootStrength();
+    
+    public function rest();
 }
 

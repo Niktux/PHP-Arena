@@ -8,7 +8,9 @@ use Warrior\Core\Action\Wait;
 
 class Unit implements Mob
 {
-    private 
+    private
+        $maxHealth,
+        $restRatio, 
         $health,
         $strategy;
     
@@ -21,10 +23,11 @@ class Unit implements Mob
         if(!is_numeric($health) || $health <= 0)
         {
             throw new \InvalidArgumentException(
-                    sprintf('Invalid health (%d)', $health));
+                sprintf('Invalid health (%d)', $health));
         }
         
-        $this->health = (int) $health;
+        $this->maxHealth = $this->health = (int) $health;
+        $this->restRatio = (int) ceil($this->health * 0.1);
         $this->attackStrength = 0;
         $this->shootStrength = 0;
     }
@@ -76,5 +79,11 @@ class Unit implements Mob
     public function getShootStrength()
     {
         return $this->shootStrength;
+    }
+    
+    public function rest()
+    {
+        $this->health += $this->restRatio;
+        $this->health = min($this->health, $this->maxHealth);    
     }
 }
