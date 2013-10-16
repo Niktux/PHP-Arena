@@ -61,12 +61,25 @@ class Game
         {
             $action = $mob->play(new Tight($this->world, $mob));
         
-            if(! $action instanceof Action)
-            {
-                throw new \RuntimeException('Invalid action');
-            }
+            // Protection from cheaters ;-)
+            $this->checkActionValidity($action);
         
             $action->execute($mob, $this->world);
+        }
+    }
+    
+    private function checkActionValidity($action)
+    {
+        $allowedActions = array(
+            'Warrior\Core\Action\Attack',    
+            'Warrior\Core\Action\Move',    
+            'Warrior\Core\Action\Rest',    
+            'Warrior\Core\Action\Wait',    
+        );
+        
+        if(! in_array(get_class($action), $allowedActions))
+        {
+            throw new \RuntimeException('Invalid action');
         }
     }
     

@@ -6,7 +6,7 @@ use Warrior\Core\Action;
 use Warrior\Core\Mob;
 use Warrior\Core\World;
 
-class Wait implements Action
+final class Wait implements Action
 {
     public function execute(Mob $mob, World $world)
     {

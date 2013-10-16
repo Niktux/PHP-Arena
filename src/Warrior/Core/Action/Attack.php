@@ -7,7 +7,7 @@ use Warrior\Core\World;
 use Warrior\Core\Mob;
 use Warrior\Core\Direction;
 
-class Attack implements Action
+final class Attack implements Action
 {
     private
         $direction;
