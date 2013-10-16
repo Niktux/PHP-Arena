@@ -12,7 +12,7 @@ class Timeout implements EndConditionChecker
         $step,
         $stepLimit;
     
-    public function __construct($stepLimit = 25)
+    public function __construct($stepLimit = 40)
     {
         $this->step = 0;
         $this->stepLimit = $stepLimit;
